@@ -4,6 +4,7 @@
       <router-link to="/">Counter</router-link> |
       <router-link to="/counter-vuex">Counter Vuex</router-link> |
       <router-link to="/counter-vuex-hooks">Counter Vuex + Hooks</router-link>
+      <router-link to="/todo">Todo</router-link>
     </div>
     <router-view />
   </div>

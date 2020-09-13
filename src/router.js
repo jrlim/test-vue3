@@ -21,6 +21,11 @@ export default new Router({
       path: "/counter-vuex-hooks",
       name: "counter-vuex-hooks",
       component: () => import("./components/CounterVuexHooks.vue")
+    },
+    {
+      path: "/todo",
+      name: "Todo",
+      component: () => import("./components/Todo.vue")
     }
   ]
 });
