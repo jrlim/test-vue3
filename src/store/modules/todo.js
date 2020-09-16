@@ -13,6 +13,7 @@ const mutations = {
     });
   },
   editTodo: (state, todo) => {
+    console.info("editTodo ---> ", todo);
     const index = state.todoList.findIndex(item => item.id === todo.id);
     state.todoList[index] = todo;
   },
