@@ -2,9 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Counter</router-link> |
+      <router-link to="/counter-new">CounterNew</router-link> |
       <router-link to="/counter-vuex">Counter Vuex</router-link> |
-      <router-link to="/counter-vuex-hooks">Counter Vuex + Hooks</router-link>
-      <router-link to="/todo">Todo</router-link>
+      <router-link to="/counter-vuex-hooks">Counter Vuex + Hooks</router-link> |
+      <router-link to="/todo">Todo</router-link> |
+      <router-link to="/new-todo">NewTodo</router-link>
     </div>
     <router-view />
   </div>

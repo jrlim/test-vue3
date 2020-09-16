@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -5,8 +6,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    number: 0,
-    status: ""
+    number: 7,
+    status: "",
+    todoList: [
+      {
+        id: 0,
+        complete: false,
+        title: "asdfasdf"
+      },
+      {
+        id: 1,
+        complete: false,
+        title: "dfg"
+      }
+    ]
   },
   actions: {
     SET_NUMBER({ commit }, payload) {
@@ -42,6 +55,21 @@ export default new Vuex.Store({
     DOUBLE_NUMBER(state) {
       state.number *= 2;
       state.status = "Doubled";
+    },
+    createTodo: (state, todo) => {
+      state.todoList.push({
+        id: todo.id,
+        complete: todo.complete,
+        title: todo.title,
+        createDate: new Date()
+      });
+    },
+    editTodo: (state, todo) => {
+      const index = state.todoList.findIndex(item => item.id === todo.id);
+      state.todoList[index] = todo;
+    },
+    removeTodo: (state, id) => {
+      state.todoList = state.todoList.filter(item => item.id !== id);
     }
   },
   getters: {
@@ -50,6 +78,9 @@ export default new Vuex.Store({
     },
     status(state) {
       return state.status;
+    },
+    todoList(state) {
+      return state.todoList;
     }
   }
 });

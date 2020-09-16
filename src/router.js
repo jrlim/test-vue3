@@ -13,6 +13,11 @@ export default new Router({
       component: () => import("./views/Home.vue")
     },
     {
+      path: "/counter-new",
+      name: "CounterNew",
+      component: () => import("./components/CounterNew.vue")
+    },
+    {
       path: "/counter-vuex",
       name: "counter-vuex",
       component: () => import("./components/CounterVuex.vue")
@@ -26,6 +31,11 @@ export default new Router({
       path: "/todo",
       name: "Todo",
       component: () => import("./components/Todo.vue")
+    },
+    {
+      path: "/new-todo",
+      name: "NewTodo",
+      component: () => import("./components/NewTodo.vue")
     }
   ]
 });
