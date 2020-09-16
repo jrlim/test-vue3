@@ -7,14 +7,19 @@
     >
     <div class="todo-item__title">{{ todo.title }}</div>
     <button @click="removeTodo(todo.id)">X</button>
+    <TodoInject />
   </div>
 </template>
 
 <script>
-import { useStore } from "vuex";
+import store from "../store";
+import TodoInject from "./TodoInject.vue";
 
 export default {
   name: "TodoItem",
+  components: {
+    TodoInject
+  },
   props: {
     todo: {
       type: Object,
@@ -22,7 +27,6 @@ export default {
     }
   },
   setup(props) {
-    const store = useStore();
 
     function removeTodo(id) {
       store.commit("removeTodo", id);

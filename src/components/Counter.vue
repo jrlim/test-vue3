@@ -6,13 +6,17 @@
 
     <h3>Number is: {{ state.count }}</h3>
     <h4>{{ state.status }}</h4>
+    <CounterView :msg="msg" />
   </div>
 </template>
 
 <script>
-import { reactive, computed, watch, onMounted } from "@vue/composition-api";
+import { watch, onMounted } from "@vue/composition-api";
+import CounterView from "./CounterNew.vue";
+import counter from "../compositions/counter";
 
 export default {
+  components: { CounterView },
   props: {
     msg: {
       type: String,
@@ -20,29 +24,7 @@ export default {
     }
   },
   setup() {
-    const state = reactive({
-      count: 0,
-      status: "",
-      doubleValue: computed(() => state.count * 2),
-      squareValue: computed(() => state.count * state.count)
-    });
-
-    // MATH OPERATIONS
-    function increment() {
-      state.count++;
-      state.status = "Incremented";
-    }
-
-    function double() {
-      state.count *= 2;
-      state.status = "Doubled";
-    }
-
-    // STATUS OPERATIONS
-    function welcomeMessage() {
-      state.status = "Counter Loaded";
-    }
-
+    const { state, increment, double, welcomeMessage } = counter();
     // LIFECYCLE HOOKS
     watch(() => console.log(state.count));
 
@@ -54,8 +36,42 @@ export default {
       double
     };
   }
+  // setup() {
+  //   const state = reactive({
+  //     count: 0,
+  //     status: "",
+  //     doubleValue: computed(() => state.count * 2),
+  //     squareValue: computed(() => state.count * state.count)
+  //   });
+
+  //   // MATH OPERATIONS
+  //   function increment() {
+  //     state.count++;
+  //     state.status = "Incremented";
+  //   }
+
+  //   function double() {
+  //     state.count *= 2;
+  //     state.status = "Doubled";
+  //   }
+
+  //   // STATUS OPERATIONS
+  //   function welcomeMessage() {
+  //     state.status = "Counter Loaded";
+  //   }
+
+  //   // LIFECYCLE HOOKS
+  //   watch(() => console.log(state.count));
+
+  //   onMounted(() => welcomeMessage());
+
+  //   return {
+  //     state,
+  //     increment,
+  //     double
+  //   };
+  // }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

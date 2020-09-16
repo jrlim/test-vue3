@@ -1,17 +1,18 @@
 <template>
   <div class="todo-list">
-    <TodoItem v-for="todo in todoList" :key="todo.id" :todo="todo" />
+    <TodoItem v-for="todo in state.todoList" :key="todo.id" :todo="todo" />
     <input v-model="title" >
     <button @click="addTodo">Add</button>
     <pre>
-    {{ todoList }}
+    {{ state.todoList }}
     </pre>
   </div>
 </template>
 
 <script>
-import { ref, computed } from "@vue/composition-api";
-import { useStore } from "vuex";
+// import { provide } from "vue";
+import { reactive, ref, computed, provide } from "@vue/composition-api";
+import store from "../store";
 import TodoItem from "./TodoItem.vue";
 
 export default {
@@ -20,29 +21,39 @@ export default {
     TodoItem
   },
   setup() {
-    const store = useStore();
-    const todoList = computed(() => store.state.todoList);
-    const id = computed(() => {
-      const { length } = store.state.todoList;
-      if (length > 0) {
-        return store.state.todoList[length - 1]?.id + 1;
-      }
-      return 0;
+    const state = reactive({
+      count: computed(() => store.getters.number),
+      doubleValue: computed(() => state.count * 2),
+      todoList: computed(() => store.getters.todoList),
+      id: computed(() => {
+        const { length } = store.getters.todoList;
+        if (length > 0) {
+          return store.getters.todoList[length - 1]?.id + 1;
+        }
+        return 0;
+      })
     });
-    const complete = ref(true);
+
+    provide("pTodoList", state.todoList);
+
+    provide("pCount", state.count);
+
+    // const store = useStore();
+
+    // const complete = ref(true);
     const title = ref("");
 
     function addTodo() {
       store.commit("createTodo", {
-        id: id.value,
-        complete: complete.value,
+        id: state.id.value,
+        complete: true,
         title: title.value
       });
     }
 
     return {
       title,
-      todoList,
+      state,
       addTodo
     };
   }
